@@ -17,14 +17,20 @@ def remove_punctuation(text: str):
 
     return text.translate(translator)
 
-def cleanse_text(text: str) -> str:
+def get_stopwords () -> list:
+    with open("data/stopwords.txt", "r") as file:
+        content = file.read()
+        return content.splitlines()
+
+def cleanse_text(text: str, ) -> str:
     if len(text) == 0:
         return ""
 
     text = text.lower()
     text = remove_punctuation(text)
     words = word_tokenize(text)
-    stop_words = set(stopwords.words("english"))
+    # stop_words = set(stopwords.words("english"))
+    stop_words = get_stopwords()
     stemmer = PorterStemmer()
     clean_words = []
 
@@ -49,3 +55,9 @@ def search_movies(query: str) -> list:
                 result.append(movie)
 
     return result
+
+
+
+
+
+
